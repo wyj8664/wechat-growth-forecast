@@ -1478,16 +1478,16 @@ html&gt;body{padding:0}&lt;/style&gt;
         const r = rates(account);
         const baselineSpend = Object.values(periods).find(period =&gt; period.days === days).posts * 100;
         const natural = state.naturalShare * r.dailyNet * days;
-        const paidAtBaseline = (1 - state.naturalShare) * r.dailyNet * days;
+        const paidPerYuan = (1 - state.naturalShare) * account.net / account.spend;
+        const paidAtBaseline = paidPerYuan * baselineSpend;
         let paid;
         if (budget &lt;= baselineSpend) {
-          paid = paidAtBaseline * budget / baselineSpend;
+          paid = paidPerYuan * budget;
         } else {
           const scenario = scenarios[state.scenario];
           const k = scenario.halfAtSixMonths * days / 182;
           const extra = budget - baselineSpend;
-          const firstSpendSlope = paidAtBaseline / baselineSpend;
-          paid = paidAtBaseline + state.marginalRatio * firstSpendSlope * k * Math.log1p(extra / k);
+          paid = paidAtBaseline + state.marginalRatio * paidPerYuan * k * Math.log1p(extra / k);
         }
         return { final: account.fans + natural + paid, natural, paid, baselineSpend };
       }
@@ -1570,7 +1570,7 @@ html&gt;body{padding:0}&lt;/style&gt;
             el(`${account.id}-${months}`).textContent = fansText(estimate(account, budget, periods[months].days).final);
           });
         });
-        el(&#x27;note&#x27;).textContent = `数据截至 2026-09-26。万联万象使用 9/1—9/20 开蓉蓉主笔期：16 篇为开蓉蓉、1 篇为其他作者，整号净增 1,550；多空 9/1—9/26 净增 1,288；产联社只用解除限流后的 9/17—9/26 净增 118；新质 9/1—9/26 净增 472。曲线在每篇可投文章固定 100 元处接续现速（自然＋投流＋后续推荐），不是单独的广告获粉。按约 20% 文章不可投，6／9／12 个月每号预计 104／156／209 篇可投。低于首投基线时的自然净增占比、追加的第一个 100 元效率及后续降效速度均为假设；最新投流表没有单篇超过 100 元的实验数据，不能据此认定第二个 100 元的真实效率。汽车号没有历史数据，产联智库暂不列入投流赛马。`;
+        el(&#x27;note&#x27;).textContent = `数据截至 2026-09-26，来自每日粉丝增长表、文章粉丝增长表及《新媒体公众号平台投流汇总表 (3)》。万联万象使用 9/1—9/20 开蓉蓉主笔期：16 篇为开蓉蓉、1 篇为其他作者；产联社只用解除限流后的 9/17—9/26。先将观察期整号净增按上方假设拆分：自然部分按天延伸，余下部分按本期实际投流花费折算到未来预算；余下部分包含加热引发的后续推荐，并非严格归因的广告获粉。按约 20% 文章不可投，6／9／12 个月每号预计 104／156／209 篇可投。自然占比、追加的第一个 100 元效率及后续降效速度均未被识别，只能作情景假设；最新投流表没有单篇超过 100 元的实验数据，不能据此认定第二个 100 元的真实效率。汽车号没有历史数据，产联智库暂不列入投流赛马。`;
         drawChart();
       }
       function saveState() {
