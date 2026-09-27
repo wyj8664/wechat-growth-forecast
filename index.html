@@ -1381,7 +1381,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   &lt;/div&gt;
 
   &lt;div class=&quot;viz-grid wgu-summary&quot; aria-live=&quot;polite&quot;&gt;
-    &lt;div class=&quot;card viz-stat&quot;&gt;&lt;span class=&quot;text-muted&quot;&gt;四号共用预算&lt;/span&gt;&lt;span class=&quot;viz-stat-value tabular-nums&quot; id=&quot;wgu-total&quot;&gt;&lt;/span&gt;&lt;span class=&quot;text-small&quot; id=&quot;wgu-budget-note&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;div class=&quot;card viz-stat&quot;&gt;&lt;span class=&quot;text-muted&quot;&gt;四号所选预算合计&lt;/span&gt;&lt;span class=&quot;viz-stat-value tabular-nums&quot; id=&quot;wgu-total&quot;&gt;&lt;/span&gt;&lt;span class=&quot;text-small&quot; id=&quot;wgu-budget-note&quot;&gt;&lt;/span&gt;&lt;/div&gt;
     &lt;div class=&quot;card viz-stat&quot;&gt;&lt;span class=&quot;text-muted&quot;&gt;选中周期达到 5 万粉&lt;/span&gt;&lt;span class=&quot;viz-stat-value tabular-nums&quot; id=&quot;wgu-five&quot;&gt;&lt;/span&gt;&lt;span class=&quot;text-small&quot;&gt;四号分别判断&lt;/span&gt;&lt;/div&gt;
     &lt;div class=&quot;card viz-stat&quot;&gt;&lt;span class=&quot;text-muted&quot;&gt;选中周期达到 10 万粉&lt;/span&gt;&lt;span class=&quot;viz-stat-value tabular-nums&quot; id=&quot;wgu-ten&quot;&gt;&lt;/span&gt;&lt;span class=&quot;text-small&quot;&gt;四号分别判断&lt;/span&gt;&lt;/div&gt;
   &lt;/div&gt;
@@ -1398,24 +1398,28 @@ html&gt;body{padding:0}&lt;/style&gt;
     &lt;/div&gt;
     &lt;div&gt;
       &lt;div class=&quot;wgu-settings&quot;&gt;
-        &lt;label class=&quot;form-label&quot; for=&quot;wgu-natural&quot;&gt;自然净增占近期整号净增比例（假设）
+        &lt;label class=&quot;form-label&quot; for=&quot;wgu-natural&quot;&gt;不投流时仍保留的近期净增比例（假设）
           &lt;select class=&quot;form-select&quot; id=&quot;wgu-natural&quot;&gt;
-            &lt;option value=&quot;0&quot;&gt;0%：复现旧模型口径&lt;/option&gt;
+            &lt;option value=&quot;0&quot;&gt;0%&lt;/option&gt;
             &lt;option value=&quot;0.25&quot;&gt;25%&lt;/option&gt;
             &lt;option value=&quot;0.5&quot; selected&gt;50%&lt;/option&gt;
             &lt;option value=&quot;0.75&quot;&gt;75%&lt;/option&gt;
           &lt;/select&gt;
         &lt;/label&gt;
-        &lt;label class=&quot;form-label&quot; for=&quot;wgu-scenario&quot;&gt;加大投流后的效率
+        &lt;label class=&quot;form-label&quot; for=&quot;wgu-marginal&quot;&gt;追加的第一个 100 元：相对首投效率（未实测）
+          &lt;select class=&quot;form-select&quot; id=&quot;wgu-marginal&quot;&gt;
+            &lt;option value=&quot;0&quot;&gt;不计追加收益&lt;/option&gt;
+            &lt;option value=&quot;0.25&quot;&gt;首投的 25%&lt;/option&gt;
+            &lt;option value=&quot;0.5&quot;&gt;首投的 50%&lt;/option&gt;
+            &lt;option value=&quot;1&quot; selected&gt;首投的 100%（旧版默认近似）&lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/label&gt;
+        &lt;label class=&quot;form-label&quot; for=&quot;wgu-scenario&quot;&gt;更多追加预算的降效速度（假设）
           &lt;select class=&quot;form-select&quot; id=&quot;wgu-scenario&quot;&gt;
             &lt;option value=&quot;optimistic&quot;&gt;乐观：低降效&lt;/option&gt;
             &lt;option value=&quot;base&quot; selected&gt;中性：逐步降效&lt;/option&gt;
             &lt;option value=&quot;cautious&quot;&gt;审慎：较快降效&lt;/option&gt;
           &lt;/select&gt;
-        &lt;/label&gt;
-        &lt;label class=&quot;form-check&quot;&gt;
-          &lt;input class=&quot;form-check-input&quot; id=&quot;wgu-recovery&quot; type=&quot;checkbox&quot;&gt;
-          &lt;span class=&quot;form-check-label&quot;&gt;产联社恢复限流前增速&lt;/span&gt;
         &lt;/label&gt;
       &lt;/div&gt;
       &lt;div id=&quot;wgu-controls&quot;&gt;&lt;/div&gt;
@@ -1431,6 +1435,16 @@ html&gt;body{padding:0}&lt;/style&gt;
       &lt;/table&gt;
     &lt;/div&gt;
   &lt;/div&gt;
+  &lt;div class=&quot;wgu-compare&quot;&gt;
+    &lt;h3&gt;本期校准数据&lt;/h3&gt;
+    &lt;div class=&quot;table-responsive&quot;&gt;
+      &lt;table class=&quot;table table-sm&quot;&gt;
+        &lt;thead&gt;&lt;tr&gt;&lt;th scope=&quot;col&quot;&gt;账号与观察期&lt;/th&gt;&lt;th scope=&quot;col&quot; class=&quot;text-end&quot;&gt;9/26 粉丝&lt;/th&gt;&lt;th scope=&quot;col&quot; class=&quot;text-end&quot;&gt;整号净增&lt;/th&gt;&lt;th scope=&quot;col&quot; class=&quot;text-end&quot;&gt;投流花费&lt;/th&gt;&lt;th scope=&quot;col&quot; class=&quot;text-end&quot;&gt;投流新增阅读&lt;/th&gt;&lt;th scope=&quot;col&quot; class=&quot;text-end&quot;&gt;投流后台关注&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+        &lt;tbody id=&quot;wgu-evidence&quot;&gt;&lt;/tbody&gt;
+      &lt;/table&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;text-small text-muted&quot;&gt;“投流后台关注”是严格归因口径，不能等同于该篇文章或整号实际新增；整号净增已经包含自然流、加热和后续推荐。&lt;/p&gt;
+  &lt;/div&gt;
   &lt;div class=&quot;wgu-note text-small&quot; id=&quot;wgu-note&quot;&gt;&lt;/div&gt;
 
   &lt;script&gt;
@@ -1438,33 +1452,31 @@ html&gt;body{padding:0}&lt;/style&gt;
       const root = document.getElementById(&#x27;wechat-growth-unified&#x27;);
       if (!root) return;
       const accounts = [
-        { id: &#x27;wan&#x27;, name: &#x27;万联万象&#x27;, fans: 13944, net: 1758, spend: 1600, sampleDays: 28, tone: &#x27;var(--viz-series-1)&#x27; },
-        { id: &#x27;multi&#x27;, name: &#x27;多空象限&#x27;, fans: 4084, net: 1911, spend: 2125, sampleDays: 28, tone: &#x27;var(--viz-series-2)&#x27; },
-        { id: &#x27;chan&#x27;, name: &#x27;产联社&#x27;, fans: 10041, net: 110, spend: 500, sampleDays: 5, tone: &#x27;var(--viz-series-3)&#x27; },
-        { id: &#x27;new&#x27;, name: &#x27;新质动能&#x27;, fans: 10979, net: 427, spend: 2013, sampleDays: 28, tone: &#x27;var(--viz-series-4)&#x27; }
+        { id: &#x27;wan&#x27;, name: &#x27;万联万象&#x27;, window: &#x27;9/1—9/20&#x27;, fans: 14219, net: 1550, spend: 1300, paidReads: 36188, paidFollows: 120, sampleDays: 20, tone: &#x27;var(--viz-series-1)&#x27; },
+        { id: &#x27;multi&#x27;, name: &#x27;多空象限&#x27;, window: &#x27;9/1—9/26&#x27;, fans: 4130, net: 1288, spend: 1875, paidReads: 45067, paidFollows: 40, sampleDays: 26, tone: &#x27;var(--viz-series-2)&#x27; },
+        { id: &#x27;chan&#x27;, name: &#x27;产联社&#x27;, window: &#x27;9/17—9/26&#x27;, fans: 10049, net: 118, spend: 700, paidReads: 19675, paidFollows: 5, sampleDays: 10, tone: &#x27;var(--viz-series-3)&#x27; },
+        { id: &#x27;new&#x27;, name: &#x27;新质动能&#x27;, window: &#x27;9/1—9/26&#x27;, fans: 11061, net: 472, spend: 1963, paidReads: 49508, paidFollows: 42, sampleDays: 26, tone: &#x27;var(--viz-series-4)&#x27; }
       ];
-      const periods = { 6: { days: 180, posts: 104, label: &#x27;6 个月&#x27; }, 9: { days: 270, posts: 156, label: &#x27;9 个月&#x27; }, 12: { days: 365, posts: 211, label: &#x27;1 年&#x27; } };
+      const periods = { 6: { days: 182, posts: 104, label: &#x27;6 个月&#x27; }, 9: { days: 273, posts: 156, label: &#x27;9 个月&#x27; }, 12: { days: 365, posts: 209, label: &#x27;1 年&#x27; } };
       const scenarios = {
-        optimistic: { halfAtSixMonths: 300000, initialMultiplier: 1 },
-        base: { halfAtSixMonths: 120000, initialMultiplier: 1 },
-        cautious: { halfAtSixMonths: 40000, initialMultiplier: 1.5 }
+        optimistic: { halfAtSixMonths: 300000 },
+        base: { halfAtSixMonths: 120000 },
+        cautious: { halfAtSixMonths: 40000 }
       };
-      const state = { period: 6, naturalShare: 0.5, scenario: &#x27;base&#x27;, recovery: false, budgets: { wan: 50000, multi: 50000, chan: 50000, new: 50000 } };
+      const state = { period: 6, naturalShare: 0.5, marginalRatio: 1, scenario: &#x27;base&#x27;, budgets: { wan: 10400, multi: 10400, chan: 10400, new: 10400 } };
       const maxBudget = 200000;
       const svgNS = &#x27;http://www.w3.org/2000/svg&#x27;;
       const el = id =&gt; root.querySelector(`#wgu-${id}`);
       const money = value =&gt; `${(value / 10000).toFixed(2)} 万元`;
+      const yuan = value =&gt; `${value.toLocaleString(&#x27;zh-CN&#x27;)} 元`;
       const fansText = value =&gt; `${(value / 10000).toFixed(2)} 万粉`;
 
       function rates(account) {
-        if (account.id === &#x27;chan&#x27; &amp;&amp; state.recovery) {
-          return { dailyNet: 3194 / 14, dailySpend: 731.6 / 14, extraCost: 500 / 110 };
-        }
-        return { dailyNet: account.net / account.sampleDays, dailySpend: account.spend / account.sampleDays, extraCost: account.spend / account.net };
+        return { dailyNet: account.net / account.sampleDays };
       }
       function estimate(account, budget, days) {
         const r = rates(account);
-        const baselineSpend = r.dailySpend * days;
+        const baselineSpend = Object.values(periods).find(period =&gt; period.days === days).posts * 100;
         const natural = state.naturalShare * r.dailyNet * days;
         const paidAtBaseline = (1 - state.naturalShare) * r.dailyNet * days;
         let paid;
@@ -1472,9 +1484,10 @@ html&gt;body{padding:0}&lt;/style&gt;
           paid = paidAtBaseline * budget / baselineSpend;
         } else {
           const scenario = scenarios[state.scenario];
-          const k = scenario.halfAtSixMonths * days / 180;
+          const k = scenario.halfAtSixMonths * days / 182;
           const extra = budget - baselineSpend;
-          paid = paidAtBaseline + (1 - state.naturalShare) * k / (r.extraCost * scenario.initialMultiplier) * Math.log1p(extra / k);
+          const firstSpendSlope = paidAtBaseline / baselineSpend;
+          paid = paidAtBaseline + state.marginalRatio * firstSpendSlope * k * Math.log1p(extra / k);
         }
         return { final: account.fans + natural + paid, natural, paid, baselineSpend };
       }
@@ -1539,10 +1552,10 @@ html&gt;body{padding:0}&lt;/style&gt;
         const results = accounts.map(a =&gt; ({ account: a, result: estimate(a, state.budgets[a.id], days) }));
         root.querySelectorAll(&#x27;[data-period]&#x27;).forEach(button =&gt; button.setAttribute(&#x27;aria-pressed&#x27;, String(Number(button.dataset.period) === state.period)));
         el(&#x27;natural&#x27;).value = String(state.naturalShare);
+        el(&#x27;marginal&#x27;).value = String(state.marginalRatio);
         el(&#x27;scenario&#x27;).value = state.scenario;
-        el(&#x27;recovery&#x27;).checked = state.recovery;
         el(&#x27;total&#x27;).textContent = money(total);
-        el(&#x27;budget-note&#x27;).textContent = total &gt; 200000 ? `超出原 20 万预算 ${money(total - 200000)}；只提醒，不锁定` : &#x27;原 20 万预算仅供对照，不锁定&#x27;;
+        el(&#x27;budget-note&#x27;).textContent = `本页只测四个有历史数据的账号；未含汽车号。六个月四号固定首投约 4.16 万元`;
         el(&#x27;five&#x27;).textContent = `${results.filter(x =&gt; x.result.final &gt;= 50000).length} / 4`;
         el(&#x27;ten&#x27;).textContent = `${results.filter(x =&gt; x.result.final &gt;= 100000).length} / 4`;
         results.forEach(({ account, result }) =&gt; {
@@ -1552,25 +1565,25 @@ html&gt;body{padding:0}&lt;/style&gt;
           slider.style.setProperty(&#x27;--fill&#x27;, `${budget / maxBudget * 100}%`);
           slider.setAttribute(&#x27;aria-valuetext&#x27;, money(budget));
           el(`${account.id}-value`).textContent = money(budget);
-          el(`${account.id}-result`).textContent = `期末约 ${fansText(result.final)} · 假设自然净增 ${fansText(result.natural)}`;
+          el(`${account.id}-result`).textContent = `期末约 ${fansText(result.final)} · 本周期每篇 100 元基线 ${money(result.baselineSpend)}`;
           [6, 9, 12].forEach(months =&gt; {
             el(`${account.id}-${months}`).textContent = fansText(estimate(account, budget, periods[months].days).final);
           });
         });
-        el(&#x27;note&#x27;).textContent = `原始基线截至 2026-09-21。万联万象仍用近 28 天：投流 1,600 元、整号净增 1,758 粉；未按作者删去唯一一篇非开蓉蓉稿。自然净增占比是可调假设，不是已识别的归因；预算的其余响应由同期投流和整号净增校准。6／9／12 个月分别按 180／270／365 天、每号约 104／156／211 篇可投，放量降效阈值随时间扩展。产联社默认取限流后 5 天；恢复选项仅改变基础增速，追加成本仍按最近数据。长期推算不确定性很大。`;
+        el(&#x27;note&#x27;).textContent = `数据截至 2026-09-26。万联万象使用 9/1—9/20 开蓉蓉主笔期：16 篇为开蓉蓉、1 篇为其他作者，整号净增 1,550；多空 9/1—9/26 净增 1,288；产联社只用解除限流后的 9/17—9/26 净增 118；新质 9/1—9/26 净增 472。曲线在每篇可投文章固定 100 元处接续现速（自然＋投流＋后续推荐），不是单独的广告获粉。按约 20% 文章不可投，6／9／12 个月每号预计 104／156／209 篇可投。低于首投基线时的自然净增占比、追加的第一个 100 元效率及后续降效速度均为假设；最新投流表没有单篇超过 100 元的实验数据，不能据此认定第二个 100 元的真实效率。汽车号没有历史数据，产联智库暂不列入投流赛马。`;
         drawChart();
       }
       function saveState() {
         if (!window.openai || !window.openai.setWidgetState) return;
-        window.openai.setWidgetState({ modelContent: { period: state.period, naturalShare: state.naturalShare, scenario: state.scenario, recovery: state.recovery, budgets: state.budgets }, privateContent: null }).catch(() =&gt; {});
+        window.openai.setWidgetState({ modelContent: { period: state.period, naturalShare: state.naturalShare, marginalRatio: state.marginalRatio, scenario: state.scenario, budgets: state.budgets }, privateContent: null }).catch(() =&gt; {});
       }
       function applySaved(saved) {
         if (!saved || typeof saved !== &#x27;object&#x27; || !saved.modelContent) return;
         const data = saved.modelContent;
         if (periods[data.period]) state.period = Number(data.period);
         if ([0, 0.25, 0.5, 0.75].includes(Number(data.naturalShare))) state.naturalShare = Number(data.naturalShare);
+        if ([0, 0.25, 0.5, 1].includes(Number(data.marginalRatio))) state.marginalRatio = Number(data.marginalRatio);
         if (scenarios[data.scenario]) state.scenario = data.scenario;
-        if (typeof data.recovery === &#x27;boolean&#x27;) state.recovery = data.recovery;
         if (data.budgets &amp;&amp; typeof data.budgets === &#x27;object&#x27;) accounts.forEach(a =&gt; {
           const value = Number(data.budgets[a.id]);
           if (Number.isFinite(value)) state.budgets[a.id] = Math.min(maxBudget, Math.max(0, Math.round(value / 100) * 100));
@@ -1589,13 +1602,16 @@ html&gt;body{padding:0}&lt;/style&gt;
         const tr = document.createElement(&#x27;tr&#x27;);
         tr.innerHTML = `&lt;th scope=&quot;row&quot;&gt;${account.name}&lt;/th&gt;&lt;td class=&quot;text-end tabular-nums&quot; id=&quot;wgu-${account.id}-6&quot;&gt;&lt;/td&gt;&lt;td class=&quot;text-end tabular-nums&quot; id=&quot;wgu-${account.id}-9&quot;&gt;&lt;/td&gt;&lt;td class=&quot;text-end tabular-nums&quot; id=&quot;wgu-${account.id}-12&quot;&gt;&lt;/td&gt;`;
         el(&#x27;comparison&#x27;).appendChild(tr);
+        const evidence = document.createElement(&#x27;tr&#x27;);
+        evidence.innerHTML = `&lt;th scope=&quot;row&quot;&gt;${account.name}（${account.window}）&lt;/th&gt;&lt;td class=&quot;text-end tabular-nums&quot;&gt;${account.fans.toLocaleString(&#x27;zh-CN&#x27;)}&lt;/td&gt;&lt;td class=&quot;text-end tabular-nums&quot;&gt;${account.net.toLocaleString(&#x27;zh-CN&#x27;)}&lt;/td&gt;&lt;td class=&quot;text-end tabular-nums&quot;&gt;${yuan(account.spend)}&lt;/td&gt;&lt;td class=&quot;text-end tabular-nums&quot;&gt;${account.paidReads.toLocaleString(&#x27;zh-CN&#x27;)}&lt;/td&gt;&lt;td class=&quot;text-end tabular-nums&quot;&gt;${account.paidFollows.toLocaleString(&#x27;zh-CN&#x27;)}&lt;/td&gt;`;
+        el(&#x27;evidence&#x27;).appendChild(evidence);
       });
       root.querySelectorAll(&#x27;[data-period]&#x27;).forEach(button =&gt; button.addEventListener(&#x27;click&#x27;, () =&gt; {
         state.period = Number(button.dataset.period); render(); saveState();
       }));
       el(&#x27;natural&#x27;).addEventListener(&#x27;change&#x27;, event =&gt; { state.naturalShare = Number(event.target.value); render(); saveState(); });
+      el(&#x27;marginal&#x27;).addEventListener(&#x27;change&#x27;, event =&gt; { state.marginalRatio = Number(event.target.value); render(); saveState(); });
       el(&#x27;scenario&#x27;).addEventListener(&#x27;change&#x27;, event =&gt; { state.scenario = event.target.value; render(); saveState(); });
-      el(&#x27;recovery&#x27;).addEventListener(&#x27;change&#x27;, event =&gt; { state.recovery = event.target.checked; render(); saveState(); });
       if (window.openai &amp;&amp; window.openai.widgetState) applySaved(window.openai.widgetState);
       else render();
       window.addEventListener(&#x27;openai:set_globals&#x27;, event =&gt; {
